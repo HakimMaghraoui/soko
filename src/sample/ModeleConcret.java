@@ -45,12 +45,16 @@ public class ModeleConcret implements Modele {
 
 
     public void move(KeyCode code) {
-
+        int f=0;
+        int fb=0;
                 switch (code) {
                     case UP:
                         direction = "top";
                         //通道和目标点
                         if (map[x - 1][y] == " " || map[x - 1][y] == ".") {
+                            if(map[x-1][y]=="."){
+                                f=1;
+                            }
                             //1.将玩家当前位置还原
                             if (map2[x][y] == ".") {
                                 map[x][y] = ".";
@@ -58,9 +62,14 @@ public class ModeleConcret implements Modele {
                                 map[x][y] = " ";
                             }
                             //3.将玩家移动过去
-                            map[x - 1][y] = "@";
+                            if (f==1){
+                                map[x - 1][y] = "+";
+                            }else {
+                                map[x - 1][y] = "@";
+                            }
                             //4.记录玩家的当前坐标
                             x -= 1;
+                            f=0;
 
                         }
                         //如果是箱子
@@ -68,6 +77,9 @@ public class ModeleConcret implements Modele {
                             //继续判断箱子的上边
                             //如果是通道或目标点
                             if (map[x - 1 - 1][y] == " " || map[x - 1 - 1][y] == ".") {
+                                if(map[x - 1 - 1][y] == "."){
+                                    fb=1;
+                                }
                                 //移动玩家
                                 if (map2[x][y] == ".") {
                                     map[x][y] = ".";
@@ -81,8 +93,12 @@ public class ModeleConcret implements Modele {
                                 //移动箱子
                                 //1.将箱子当前的位子不需要还原
                                 //3.移动箱子
-                                map[x - 1 - 1][y] ="$";
-
+                                if(fb==1){
+                                    map[x - 1 - 1][y] ="*";
+                                }else {
+                                    map[x - 1 - 1][y] = "$";
+                                }
+                                fb=0;
                             }
                         }
                         break;
@@ -90,15 +106,23 @@ public class ModeleConcret implements Modele {
                         direction = "bottom";
                         //通道和目标点
                         if (map[x + 1][y] == " " || map[x + 1][y] == ".") {
+                            if( map[x + 1][y] == "."){
+                                f=1;
+                            }
                             if (map2[x][y] == ".") {
                                 map[x][y] = ".";
                             } else {
                                 map[x][y] = " ";
                             }
                             //3.将玩家移动过去
-                            map[x + 1][y] = "@";
+                            if(f==1){
+                                map[x + 1][y] = "+";
+                            }else {
+                                map[x + 1][y] = "@";
+                            }
                             //4.记录玩家的当前坐标
                             x += 1;
+                            f=0;
 
                         }
                         //如果是箱子
@@ -106,6 +130,9 @@ public class ModeleConcret implements Modele {
                             //继续判断箱子的上边
                             //如果是通道或目标点
                             if (map[x + 1 + 1][y] == " " || map[x + 1 + 1][y] == ".") {
+                                if( map[x + 1 + 1][y] == "."){
+                                    fb=1;
+                                }
                                 //移动玩家
                                 if (map2[x][y] == ".") {
                                     map[x][y] = ".";
@@ -119,7 +146,12 @@ public class ModeleConcret implements Modele {
                                 //移动箱子
                                 //1.将箱子当前的位子不需要还原
                                 //3.移动箱子
-                                map[x + 1 + 1][y] = "$";
+                                if(fb==1){
+                                    map[x + 1 + 1][y] = "*";
+                                }else {
+                                    map[x + 1 + 1][y] = "$";
+                                }
+                                fb=0;
 
                             }
                         }
@@ -128,15 +160,23 @@ public class ModeleConcret implements Modele {
                         direction = "left";
                         //通道和目标点
                         if (map[x][y - 1] == " " || map[x][y - 1] == ".") {
+                           if(map[x][y - 1] == "."){
+                               f=1;
+                           }
                             if (map2[x][y] == ".") {
                                 map[x][y] = ".";
                             } else {
                                 map[x][y] = " ";
                             }
                             //3.将玩家移动过去
-                            map[x][y - 1] = "@";
+                            if(f==1){
+                                map[x][y - 1] = "+";
+                            }else {
+                                map[x][y - 1] = "@";
+                            }
                             //4.记录玩家的当前坐标
                             y -= 1;
+                            f=0;
                             break;
                         }
                         //如果是箱子
@@ -144,6 +184,9 @@ public class ModeleConcret implements Modele {
                             //继续判断箱子的上边
                             //如果是通道或目标点
                             if (map[x][y - 1 - 1] == " " || map[x][y - 1 - 1] == ".") {
+                                if(map[x][y - 1 - 1] == "."){
+                                    fb=1;
+                                }
                                 //移动玩家
                                 if (map2[x][y] == ".") {
                                     map[x][y] = ".";
@@ -155,9 +198,14 @@ public class ModeleConcret implements Modele {
                                 //移动箱子
                                 //1.将箱子当前的位子不需要还原
                                 //3.移动箱子
-                                map[x][y - 1 - 1] = "$";
+                                if(fb==1){
+                                    map[x][y - 1 - 1] = "*";
+                                }else {
+                                    map[x][y - 1 - 1] = "$";
+                                }
                                 //4.记录玩家的当前坐标
                                 y -= 1;
+                                fb=0;
                                 //重画
 
                             }
@@ -167,16 +215,23 @@ public class ModeleConcret implements Modele {
                         direction = "right";
                         //通道和目标点
                         if (map[x][y + 1] == " " || map[x][y + 1] == ".") {
+                            if( map[x][y + 1] == "."){
+                                f=1;
+                            }
                             if (map2[x][y] == ".") {
                                 map[x][y] = ".";
                             } else {
                                 map[x][y] = " ";
                             }
                             //3.将玩家移动过去
-                            map[x][y + 1] = "@";
+                            if(f==1){
+                                map[x][y + 1] = "@";
+                            }else {
+                                map[x][y + 1] = "@";
+                            }
                             //4.记录玩家的当前坐标
                             y += 1;
-
+                            f=0;
                             break;
                         }
                         //如果是箱子
@@ -184,6 +239,9 @@ public class ModeleConcret implements Modele {
                             //继续判断箱子的上边
                             //如果是通道或目标点
                             if (map[x][y + 1 + 1] == " " || map[x][y + 1 + 1] == ".") {
+                               if (map[x][y + 1 + 1] == "."){
+                                   fb=1;
+                               }
                                 //移动玩家
                                 if (map2[x][y] == ".") {
                                     map[x][y] = ".";
@@ -196,9 +254,14 @@ public class ModeleConcret implements Modele {
                                 //移动箱子
                                 //1.将箱子当前的位子不需要还原
                                 //3.移动箱子
-                                map[x][y + 1 + 1] = "$";
+                                if(fb==1){
+                                    map[x][y + 1 + 1] = "*";
+                                }else {
+                                    map[x][y + 1 + 1] = "$";
+                                }
                                 //4.记录玩家的当前坐标
                                 y += 1;
+                                fb=0;
 
                             }
                         }
